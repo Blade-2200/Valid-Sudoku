@@ -8,6 +8,12 @@
 // Return true if the Sudoku board is valid, otherwise return false
 // Note: A board does not need to be full or be solvable to be valid.
 
+// ## **Approach**  
+// ### **1. Brute Force (if applicable)**
+// - Iterate through every 3x3 elements and check if there is any duplicates.
+// - Time Compleixty: O(1)
+// - Space Compleixty: O(1)
+
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
