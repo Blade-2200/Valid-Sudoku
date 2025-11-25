@@ -17,138 +17,25 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        set<string> seen;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }
-        }
-        seen.clear();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 3; j < 6; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
-        seen.clear();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 6; j < 9; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
-        seen.clear();
-        for (int i = 3; i < 6; i++) {
-            for (int j = 0; j < 3; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
-        seen.clear();
-        for (int i = 3; i < 6; i++) {
-            for (int j = 3; j < 6; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
-        seen.clear();
-        for (int i = 3; i < 6; i++) {
-            for (int j = 6; j < 9; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
-        seen.clear();
-        for (int i = 6; i < 9; i++) {
-            for (int j = 0; j < 3; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
-        seen.clear();
-        for (int i = 6; i < 9; i++) {
-            for (int j = 3; j < 6; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
-        seen.clear();
-        for (int i = 6; i < 9; i++) {
-            for (int j = 6; j < 9; j++) {
-                std::cout << std::string(1, board[i][j]);
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
-            }   
-        }
+        unordered_set<string> seen;
 
         for (int i = 0; i < 9; i++) {
-            seen.clear();
             for (int j = 0; j < 9; j++) {
-                std::string value(1, board[i][j]);
-                if (board[i][j] != '.') {
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                    } else { seen.insert(std::string(1, board[i][j])); }
-                }
+                char c = board[i][j];
+                if (c == '.') continue;
+
+                string rowKey = string(1, c) + " row " + to_string(i);
+                string colKey = string(1, c) + " col " + to_string(j);
+                string boxKey = string(1, c) + " box " + to_string((i/3)*3 + j/3);
+
+                if (seen.count(rowKey) || seen.count(colKey) || seen.count(boxKey))
+                    return false;
+
+                seen.insert(rowKey);
+                seen.insert(colKey);
+                seen.insert(boxKey);
             }
         }
-        for (int j = 0; j < 9; j++) {
-            seen.clear();
-            for (int i = 0; i < 9; i++) {
-                if (board[i][j] != '.') {
-                    std::string value(1, board[i][j]);
-                    if (seen.find(value) != seen.end()) {
-                        return false;
-                }
-                seen.insert(value);
-            }
-        }
-    }
 
         return true;
     }
