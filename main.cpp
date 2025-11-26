@@ -14,6 +14,21 @@
 // - Time Compleixty: O(1)
 // - Space Compleixty: O(1)
 
+// ### **2. Optimized Hash Set Approach**
+// - Use a hash set to track seen digits for:
+//     - each row,
+//     - each column,
+//     - each 3×3 box.
+// - For every non-empty cell, generate three keys:
+//     - `"digit row r"`
+//     - `"digit col c"`
+//     - `"digit box b"`  → where `b = (r/3)*3 + c/3`
+// - If any key already exists, the board is invalid.
+// - Otherwise, insert keys into the set.
+// - This avoids using 3 separate data structures.
+// - Time Complexity: O(1) — board size is fixed (81 cells)
+// - Space Complexity: O(1) — at most 81 entries in the set
+
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
